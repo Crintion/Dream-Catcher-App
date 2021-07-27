@@ -1,2 +1,2 @@
-# Dream-Catcher-App
+# Dream-Catcher-Back-End
 Capstone project
