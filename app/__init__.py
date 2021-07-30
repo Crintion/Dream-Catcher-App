@@ -1,0 +1,34 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+import os
+from dotenv import load_dotenv
+
+
+db = SQLAlchemy()
+migrate = Migrate()
+load_dotenv()
+
+
+def create_app(test_config=None):
+    app = Flask(__name__)
+    
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/dream_journal_db'
+
+
+    # Import models here for Alembic setup
+    from app.models.dream_entry import DreamEntry
+    from app.models.dream_tag import DreamTag
+    from app.routes import dream_tag_bp
+    from app.routes import journal_entry_bp
+
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    # Register Blueprints here
+    app.register_blueprint(journal_entry_bp)
+    app.register_blueprint(dream_tag_bp)
+
+    return app
