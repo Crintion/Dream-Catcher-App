@@ -1,8 +1,6 @@
 from app import db
 from app.models.journal_entry import JournalEntry
 from app.models.journal_tag import JournalTag
-from app.models.mood_entry import MoodEntry
-from app.models.mood_tag import MoodTag
 from flask import Blueprint, request, make_response, jsonify
 from datetime import datetime
 import requests
@@ -11,8 +9,7 @@ import os
  
 journal_entry_bp = Blueprint("journal_entry", __name__, url_prefix='/journal_entry')
 journal_tag_bp = Blueprint("journal_tag", __name__, url_prefix='/journal_tag')
-# mood_entry_bp = Blueprint("mood_entry", __name__, url_prefix='/mood_entry')
-# mood_tag_bp = Blueprint("mood_tag", __name__, url_prefix='/mood_tag')
+
 
 @journal_entry_bp.route("", methods=["POST"], strict_slashes = False)
 def post_entry():
