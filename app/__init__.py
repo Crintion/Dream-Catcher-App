@@ -14,13 +14,13 @@ def create_app(test_config=None):
     app = Flask(__name__)
     
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/dream_journal_db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/mood_catcher_db_development'
 
 
     # Import models here for Alembic setup
-    from app.models.dream_entry import DreamEntry
-    from app.models.dream_tag import DreamTag
-    from app.routes import dream_tag_bp
+    from app.models.journal_entry import JournalEntry
+    from app.models.journal_tag import JournalTag
+    from app.routes import journal_tag_bp
     from app.routes import journal_entry_bp
 
 
@@ -29,6 +29,6 @@ def create_app(test_config=None):
 
     # Register Blueprints here
     app.register_blueprint(journal_entry_bp)
-    app.register_blueprint(dream_tag_bp)
+    app.register_blueprint(journal_tag_bp)
 
     return app

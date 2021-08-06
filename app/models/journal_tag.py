@@ -4,7 +4,7 @@ from app import db
 class JournalTag(db.Model):
     journal_tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     journal_tag = db.Column(db.String)
-    journal_tag_date = db.Column(db.DateTime, nullable=True)
+    journal_tag_date = db.Column(db.String, nullable=True)
 
 
     def to_json(self):

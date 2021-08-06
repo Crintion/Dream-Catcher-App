@@ -3,7 +3,7 @@ from app import db
 
 class JournalEntry(db.Model):
     journal_entry_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    journal_date = db.Column(db.DateTime, nullable=True)
+    journal_date = db.Column(db.String, nullable=True)
     journal_title = db.Column(db.String)
     journal_text = db.Column(db.String)
 
