@@ -1,6 +1,5 @@
 from app import db
 from app.models.journal_entry import JournalEntry
-from app.models.journal_tag import JournalTag
 from flask import Blueprint, request, make_response, jsonify
 from datetime import datetime
 import requests
@@ -8,23 +7,33 @@ import flask_migrate
 import os
  
 journal_entry_bp = Blueprint("journal_entry", __name__, url_prefix='/journal_entry')
-journal_tag_bp = Blueprint("journal_tag", __name__, url_prefix='/journal_tag')
 
 
-@journal_entry_bp.route("", methods=["POST"], strict_slashes = False)
+
+@journal_entry_bp.route("", methods=["POST", "PUT"])
 def post_entry():
     request_body = request.get_json()
     new_entry = JournalEntry(
-        journal_date=request_body["journal date"], 
+        journal_month=request_body["journal month"],
+        journal_day=request_body["journal day"], 
         journal_title=request_body["journal title"],
-        journal_text=request_body["journal text"])
+        journal_text=request_body["journal text"],
+        journal_mood = request_body["journal mood"])
+    entry = JournalEntry.query.filter_by(journal_month = request_body["journal month"], journal_day = request_body["journal day"]).first()
+    if not entry:
+        db.session.add(new_entry)
+        db.session.commit()
+        return make_response(f"Journal: {new_entry.journal_title} was successfully created"), 201
+    else:
+        entry.journal_title=request_body["journal title"]
+        entry.journal_text=request_body["journal text"]
+        entry.journal_mood=request_body["journal mood"]
 
-    db.session.add(new_entry)
-    db.session.commit()
+        db.session.commit()
+        
+    return make_response(f"Journal: {new_entry.journal_title} was successfully updated"), 200
 
-    return make_response(f"Journal: {new_entry.journal_title} was successfully created"), 201
-
-@journal_entry_bp.route("", methods=["GET"], strict_slashes = False)
+@journal_entry_bp.route("", methods=["GET"])
 def get_all_entries():
     journal_entry_response_body = []
     journal_entries = JournalEntry.query.all()
@@ -32,35 +41,36 @@ def get_all_entries():
         journal_entry_response_body.append(entry.to_json())
     return jsonify(journal_entry_response_body), 200
     
-@journal_entry_bp.route("/<journal_entry_id>", methods=["GET"], strict_slashes = False)
-def get_single_entry(journal_entry_id):
+@journal_entry_bp.route("/<journal_entry_id>", methods=["GET"])
+def get_entry_by_id(journal_entry_id):
     entry = JournalEntry.query.get(journal_entry_id)
     if not entry:
         return "", 404
     return make_response({"Journal entry": entry.to_json()}), 200
 
-@journal_tag_bp.route("", methods=["POST"], strict_slashes = False)
-def post_tags():
-    request_body = request.get_json()
-    new_tag = JournalTag(journal_tag=request_body["journal tag"],
-                        journal_tag_date=request_body["journal tag date"])
-
-    db.session.add(new_tag)
-    db.session.commit()
-
-    return make_response(f"Tag: {new_tag.journal_tag} was successfully created", 201)
-
-@journal_tag_bp.route("", methods=["GET"], strict_slashes = False)
-def get_all_tags():
-    tag_response_body = []
-    tag_entries = JournalTag.query.all()
-    for entry in tag_entries:
-        tag_response_body.append(entry.to_json())
-    return jsonify(tag_response_body), 200
-
-@journal_tag_bp.route("/<journal_tag_id>", methods=["GET"], strict_slashes = False)
-def get_single_tag(journal_tag_id):
-    tag = JournalTag.query.get(journal_tag_id)
-    if not tag:
+@journal_entry_bp.route("/month/<journal_month>/day/<journal_day>", methods=["GET"])
+def get_entry_by_date(journal_month, journal_day):
+    entry = JournalEntry.query.filter_by(journal_month = journal_month, journal_day = journal_day).first()
+    if not entry:
         return "", 404
-    return make_response({"Journal Tag": tag.to_json()}), 200
+    return make_response({"Journal entry": entry.to_json()}), 200
+
+@journal_entry_bp.route("/month/<journal_month>/day/<journal_day>", methods=["DELETE"])
+def delete_entry(journal_month, journal_day):
+    entry = JournalEntry.query.filter_by(journal_month = journal_month, journal_day = journal_day).first()
+    if not entry:
+        return "", 404
+    else:
+        db.session.delete(entry)
+        db.session.commit()
+    return make_response("Journal entry deleted"), 200
+            
+
+
+
+
+
+
+
+
+

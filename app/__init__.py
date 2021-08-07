@@ -19,8 +19,6 @@ def create_app(test_config=None):
 
     # Import models here for Alembic setup
     from app.models.journal_entry import JournalEntry
-    from app.models.journal_tag import JournalTag
-    from app.routes import journal_tag_bp
     from app.routes import journal_entry_bp
 
 
@@ -29,6 +27,6 @@ def create_app(test_config=None):
 
     # Register Blueprints here
     app.register_blueprint(journal_entry_bp)
-    app.register_blueprint(journal_tag_bp)
+    
 
     return app
