@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS 
 
 
 db = SQLAlchemy()
@@ -12,9 +13,11 @@ load_dotenv()
 
 def create_app(test_config=None):
     app = Flask(__name__)
+    CORS(app)
     
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/mood_catcher_db_development'
+    app.config['CORS_ALLOW_HEADERS'] = "*"
 
 
     # Import models here for Alembic setup
