@@ -27,13 +27,15 @@ The site should be used as a tool to record your mood at regular intervals. This
 ### One time project set up
 Follow these directions one time at the start of your project:
 
-1. Navigate to the folder you will want to put this app:
-
+1. Navigate to, in terminal, and create a new folder you will want to put this app:
+```
+$ cd projects
+```
 2. In Github click on the "Fork" button. This will make a copy of the project into your Github account:  
-```
-(https://user-images.githubusercontent.com/64983017/129977569-edf5c449-c461-448b-9759-42ff904971a6.png)
-```
-3. Clone into the folder you are using to store this app:
+
+![Screen Shot 2021-08-18 at 3 26 15 PM](https://user-images.githubusercontent.com/64983017/129980165-a5cf2f38-852c-481b-bf44-96c402844d35.png)
+
+3. Clone into the folder you are using to store this repo:
 ```
 $ git clone (paste here the url you copied)
 ```
@@ -54,7 +56,7 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-## You are ready to get started!!
+## You are ready to get started!! Enjoy 🤗
 
 
 
