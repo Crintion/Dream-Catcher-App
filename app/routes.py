@@ -20,15 +20,17 @@ def post_entry():
     if not entry:
         db.session.add(new_entry)
         db.session.commit()
-        return make_response(f"Journal: {new_entry.calendar_id} was successfully created"), 201
+        return jsonify(request_body), 201
+        # return make_response(f"Journal: {new_entry.calendar_id} was successfully created"), 201
     else:
         entry.calendar_id=request_body["calendar_id"]
         entry.journal_text=request_body["journal_text"]
         entry.journal_mood=request_body["journal_mood"]
 
         db.session.commit()
-        
-    return make_response(f"Journal: {new_entry.calendar_id} was successfully updated"), 200
+
+    return jsonify(request_body), 201 
+    # return make_response(f"Journal: {new_entry.calendar_id} was successfully updated"), 200
 
 @journal_entry_bp.route("", methods=["GET"])
 def get_all_entries():
