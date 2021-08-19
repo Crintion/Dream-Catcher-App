@@ -1,8 +1,8 @@
 # Mood Catcher
-This app is a Capstone project that tracks your mood over time while letting you log a daily mood journal to gain perspective on your overall mood patterns! 
-The process should be fun and creative. Don't let the time throw you off, with mood-catcher you can start in the beginning, middle, or end of the year.
+This app is a Capstone project that tracks your mood over time, while letting you log a daily mood journal to gain perspective on your overall mood patterns! 
+The process should be fun and creative. Don't let the time throw you off, with mood-catcher you can start in the beginning, middle, or end of the year!
 
-The site should be used as a tool to record your mood at regular intervals. This tool is to help you look for patterns in how your mood vary over time and connect those moods to events that occurred during your day. The journal entry should be a way to discuss about your feelings more clearly, avoid or resolve conflicts better, and move past difficult feelings more easily.
+The site should be used as a tool to record your mood at regular intervals. This tool was designed to help you look for patterns in how your mood varies over time and connect those moods to events that occurred during your day. The journal entry is a way to talk about about your feelings more clearly, avoid or resolve conflicts better, and move past difficult feelings more easily.
 
 ![Screen Shot 2021-08-18 at 2 25 06 PM](https://user-images.githubusercontent.com/64983017/129974480-a36db052-1957-4a38-82ac-d4e05fee1f45.png)
 
